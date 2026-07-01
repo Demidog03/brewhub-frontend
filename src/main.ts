@@ -8,6 +8,7 @@ import './core/styles/main.css'
 import App from './App.vue'
 import router from './router'
 import { MyPreset } from './core/configs/primevue.config.ts'
+import { ToastService } from 'primevue'
 
 const app = createApp(App)
 
@@ -22,5 +23,6 @@ app.use(PrimeVue, {
   },
   ripple: true,
 })
+app.use(ToastService);
 
 app.mount('#app')

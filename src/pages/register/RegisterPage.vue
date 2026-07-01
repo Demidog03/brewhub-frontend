@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import authApi from '@/modules/auth/api/auth.api';
 import AuthFormLayout from '@/modules/auth/layouts/AuthFormLayout.vue';
 import { registerSchema } from '@/modules/auth/validation/auth.validation';
 import { toTypedSchema } from '@vee-validate/yup';
 import { Button, InputText, Message, Password } from 'primevue';
 import { useForm } from 'vee-validate';
-import { watch } from 'vue';
+import { ref } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
 
 const { defineField, handleSubmit, errors } = useForm({
   validationSchema: toTypedSchema(registerSchema)
@@ -15,12 +17,25 @@ const [email, emailProps] = defineField('email')
 const [password, passwordProps] = defineField('password')
 const [confirmPassword, confirmPasswordProps] = defineField('confirmPassword')
 
-function onSubmit() {
-  // handleSubmit()
-}
+const router = useRouter()
+const loading = ref<boolean>(false)
 
-watch(errors, () => {
-  console.log(errors.value)
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    loading.value = true
+    const response = await authApi.register({
+      email: values.email,
+      name: values.name,
+      password: values.password
+    })
+
+    if (response) {
+      router.push('/login')
+    }
+  }
+  finally {
+    loading.value = false
+  }
 })
 
 </script>
@@ -30,7 +45,7 @@ watch(errors, () => {
     <template #title>Register</template>
     <template #subtitle>Already Have An Account, Login.</template>
     <template #form>
-      <form class="register-form" novalidate @submit="onSubmit">
+      <form class="register-form" novalidate @submit.prevent="onSubmit">
         <div class="register-form-container">
           <div>
             <label class="form-label" for="register-name">Full Name</label>
@@ -68,8 +83,13 @@ watch(errors, () => {
             </Message>
           </div>
         </div>
-        <Button class="submit-button" size="large" type="submit" label="Create Account" severity="contrast" rounded
+        <Button :loading="loading" class="submit-button" size="large" type="submit" label="Create Account" severity="contrast" rounded
           fluid />
+          <RouterLink to="/login">
+          <Button variant="text" severity="contrast">
+            Already have an account? Please, sign in.
+          </Button>
+        </RouterLink>
       </form>
     </template>
   </AuthFormLayout>
@@ -90,5 +110,6 @@ watch(errors, () => {
 
 .submit-button {
   margin-top: 40px;
+  margin-bottom: 10px;
 }
 </style>

@@ -8,3 +8,9 @@ export interface LoginPayload {
   email: string
   password: string
 }
+
+export interface RegisterResponse {
+  id: string
+  name: string
+  email: string
+}

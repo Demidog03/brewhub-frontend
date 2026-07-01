@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Avatar, Badge, Menubar } from 'primevue';
+import { Avatar, Badge, Button, Menubar } from 'primevue';
 import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 
@@ -62,7 +62,10 @@ const items = ref([
         </template>
         <template #end>
           <div class="flex items-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+            <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
+             <RouterLink to="/login">
+              <Button severity="primary" size="small" label="Sign in"/>
+             </RouterLink>
           </div>
         </template>
       </Menubar>
