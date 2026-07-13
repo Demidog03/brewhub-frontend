@@ -64,7 +64,7 @@ const items = ref([
           <div class="flex items-center gap-2">
             <!-- <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /> -->
              <RouterLink to="/login">
-              <Button severity="primary" size="small" label="Sign in"/>
+              <Button severity="primary" size="small" label="Login"/>
              </RouterLink>
           </div>
         </template>
