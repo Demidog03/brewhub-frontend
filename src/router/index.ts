@@ -1,6 +1,6 @@
 import MainLayout from '@/core/layouts/MainLayout.vue'
 import LoginPage from '@/pages/login/LoginPage.vue'
-import ProductsPage from '@/pages/products/ProductsPage.vue'
+import HomePage from '@/pages/home/HomePage.vue'
 import RegisterPage from '@/pages/register/RegisterPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -12,8 +12,8 @@ const router = createRouter({
       component: MainLayout,
       children: [
         {
-          path: 'products',
-          component: ProductsPage,
+          path: '',
+          component: HomePage,
         },
         {
           path: 'login',
